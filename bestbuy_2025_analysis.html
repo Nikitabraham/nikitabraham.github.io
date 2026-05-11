@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BestBuy Sales Analysis 2025</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f4f0;color:#1a1a18;padding:2rem}
+  .header{margin-bottom:2rem}
+  .header h1{font-size:24px;font-weight:600;color:#1B4F8A;margin-bottom:4px}
+  .header p{font-size:13px;color:#888}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+  .card{background:#fff;border-radius:12px;border:1px solid #e5e3db;padding:1.25rem}
+  .card.full{grid-column:1/-1}
+  .card h2{font-size:13px;font-weight:600;color:#1B4F8A;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+  .card p.sub{font-size:11px;color:#999;margin-bottom:1rem}
+  .insight{background:#f4f4f0;border-radius:8px;padding:9px 13px;font-size:12px;color:#555;margin-top:12px;border-left:3px solid #1B4F8A}
+  .insight b{color:#1a1a18;font-weight:600}
+  .seg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+  .seg-card{border-radius:10px;padding:.9rem;border:1px solid #e5e3db;background:#f9f9f7}
+  .seg-card.top{border:2px solid #1B4F8A;background:#EBF4FC}
+  .seg-card .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;margin-bottom:6px}
+  .seg-card .name{font-size:14px;font-weight:600;color:#1a1a18;margin-bottom:5px}
+  .seg-card .stat{font-size:18px;font-weight:700;color:#1B4F8A;margin-bottom:3px}
+  .seg-card .desc{font-size:11px;color:#777;line-height:1.5}
+  .heatmap-wrap{overflow-x:auto;margin-top:4px}
+  table.hm{border-collapse:separate;border-spacing:3px;width:100%;font-size:11px}
+  table.hm th{padding:5px 6px;text-align:center;font-weight:600;color:#555;white-space:nowrap;background:none}
+  table.hm th.rl{text-align:right;min-width:44px;font-size:11px}
+  table.hm td{padding:6px 4px;text-align:center;border-radius:5px;font-size:11px;font-weight:500;min-width:72px}
+  .legend-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:#888}
+  .legend-grad{height:10px;width:160px;border-radius:4px;background:linear-gradient(to right,#EBF4FC,#1B4F8A)}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>BestBuy Electronics — Sales Analysis 2025</h1>
+  <p>1,000 transactions &nbsp;|&nbsp; 10 product categories &nbsp;|&nbsp; Jan–Dec 2025</p>
+</div>
+<div class="grid">
+
+  <div class="card full">
+    <h2>Q1 — Revenue by product category</h2>
+    <p class="sub">Which department is pulling the most weight?</p>
+    <canvas id="c1" height="110"></canvas>
+    <div class="insight"><b>Audio leads at $119,821</b> — followed by Tablets ($115,723) and Smart Home ($113,336). These three form a clear top tier. Gaming ($30,486) and Smartphones ($38,061) are the weakest performers.</div>
+  </div>
+
+  <div class="card full">
+    <h2>Q2 — Monthly revenue trend</h2>
+    <p class="sub">Seasonal peaks to flag for management</p>
+    <canvas id="c2" height="90"></canvas>
+    <div class="insight"><b>Three clear peaks: May ($92,543), October ($80,770), and December ($82,741).</b> March ($50,958) and September ($50,357) are the slowest months — ideal for targeted promotions or clearance events.</div>
+  </div>
+
+  <div class="card full">
+    <h2>Q3 — Average transaction value by age group & gender</h2>
+    <p class="sub">Who spends the most per visit?</p>
+    <canvas id="c3" height="90"></canvas>
+    <div class="insight"><b>Women 55+ average $924 per transaction — your highest-value customer.</b> Men 25–34 follow at $916. Women outspend men in 4 of 5 age groups. Men 55+ ($640) are the most price-conscious.</div>
+  </div>
+
+  <div class="card">
+    <h2>Q4 — Revenue by day of week</h2>
+    <p class="sub">Best and worst days for sales</p>
+    <canvas id="c4" height="200"></canvas>
+    <div class="insight"><b>Friday is strongest ($124,360). Sunday is weakest ($100,688).</b> Launch promotions on Friday. Run loyalty deals on Sunday to lift the slow day.</div>
+  </div>
+
+  <div class="card">
+    <h2>Best-selling hour of the day</h2>
+    <p class="sub">When are customers most active in store?</p>
+    <canvas id="c6" height="200"></canvas>
+    <div class="insight"><b>6 PM is your peak hour at $103,359.</b> The after-work window (5–7 PM) drives the most revenue. Staff up between 4–8 PM and run promotions through that window.</div>
+  </div>
+
+  <div class="card full">
+    <h2>Best day + hour combination — Revenue heatmap</h2>
+    <p class="sub">Darker cell = higher revenue. Spot your power windows at a glance.</p>
+    <div class="heatmap-wrap"><table class="hm" id="hm"></table></div>
+    <div class="legend-row">
+      <span>Low</span>
+      <div class="legend-grad"></div>
+      <span>High</span>
+    </div>
+    <div class="insight"><b>Saturday 5 PM is your #1 power window ($22,846).</b> Wednesday 4 PM ($21,498) and Friday 6 PM ($20,584) are close runners-up. <b>Recommendation:</b> Schedule your biggest in-store promotions on Saturday afternoons and Friday evenings. Avoid Sunday mornings — the quietest window of the entire week.</div>
+  </div>
+
+  <div class="card full">
+    <h2>Q5 — Best customer segment × category to prioritise</h2>
+    <p class="sub">Where to focus for maximum revenue impact</p>
+    <div class="seg-grid">
+      <div class="seg-card top">
+        <span class="badge" style="background:#dbeeff;color:#1B4F8A">Top recommendation</span>
+        <div class="name">Women 45–54 × Cameras</div>
+        <div class="stat">$28,619</div>
+        <div class="desc">Only 12 transactions — avg $2,385 per ticket. Your highest-value segment. Target with camera bundles, Geek Squad plans, and in-store demos.</div>
+      </div>
+      <div class="seg-card">
+        <span class="badge" style="background:#fef3cd;color:#7D4E00">Runner up</span>
+        <div class="name">Women 55+ × TVs</div>
+        <div class="stat">$24,989</div>
+        <div class="desc">Just 7 transactions, avg $3,570 per ticket — the highest avg spend in the dataset. Small but extraordinarily high value.</div>
+      </div>
+      <div class="seg-card">
+        <span class="badge" style="background:#d4efdf;color:#1A6B3C">Volume pick</span>
+        <div class="name">Men 25–34 × Appliances</div>
+        <div class="stat">$19,598</div>
+        <div class="desc">23 transactions at $852 avg. Lower ticket but consistent — best for stable recurring revenue.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+const P='#7F77DD',T='#1D9E75',A='#EF9F27',C='#D85A30',B='#378ADD',G='#888780';
+const tc='#666',gc='rgba(0,0,0,0.06)';
+const tip=v=>' $'+Math.round(v).toLocaleString();
+const kfmt=v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v);
+
+new Chart(document.getElementById('c1'),{type:'bar',data:{labels:['Audio','Tablets','Smart Home','Appliances','Cameras','TVs','Computers','Laptops','Smartphones','Gaming'],datasets:[{data:[119821,115723,113336,110247,105383,80743,53199,52168,38061,30486],backgroundColor:[P,P,P,T,T,A,A,C,C,C],borderRadius:5,borderSkipped:false}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.x)}}},scales:{x:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11}},grid:{display:false}}}}});
+
+new Chart(document.getElementById('c2'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{data:[57959,70055,50958,58912,92543,57741,67003,77682,50357,80770,70500,82741],borderColor:'#1B4F8A',backgroundColor:'#1B4F8A22',fill:true,tension:0.4,pointBackgroundColor:'#1B4F8A',pointRadius:5,pointHoverRadius:7}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+
+new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['18–24','25–34','35–44','45–54','55+'],datasets:[{label:'Female',data:[723,843,830,900,924],backgroundColor:C,borderRadius:4},{label:'Male',data:[815,916,773,789,640],backgroundColor:B,borderRadius:4}]},options:{plugins:{legend:{display:true,labels:{color:tc,font:{size:11},boxWidth:14,padding:16}},tooltip:{callbacks:{label:c=>' $'+c.parsed.y}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:v=>'$'+v},grid:{color:gc}}}}});
+
+const dayData=[119479,124434,116705,123286,124360,110215,100688];
+new Chart(document.getElementById('c4'),{type:'bar',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{data:dayData,backgroundColor:dayData.map(v=>v===Math.max(...dayData)?T:v===Math.min(...dayData)?C:G+'bb'),borderRadius:5}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+
+const hrData=[23047,44160,83235,73853,67694,57988,83109,86789,103359,90353,73811,31769];
+new Chart(document.getElementById('c6'),{type:'bar',data:{labels:['10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM'],datasets:[{data:hrData,backgroundColor:hrData.map(v=>v===Math.max(...hrData)?T:v===Math.min(...hrData)?C:P+'bb'),borderRadius:4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:10}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+
+// Heatmap
+const dayShort=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const hourLabels=['10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM'];
+const heatData=[
+  [1047,5897,2649,5486,3316,1197,3455],
+  [7486,5233,4690,10156,6767,3787,6041],
+  [10702,14829,18081,11254,11052,11385,5932],
+  [20325,8120,4155,6953,15082,9130,10088],
+  [6209,10130,8280,10384,13905,11722,7064],
+  [8933,11478,7712,10013,3885,7488,8479],
+  [16573,5744,21498,13653,8703,3315,13623],
+  [14372,12186,9085,10797,11356,22846,6147],
+  [9965,15941,19206,9262,20584,14025,14376],
+  [10372,15364,4751,16930,15636,15851,11449],
+  [8117,16564,12568,10569,10937,5810,9246],
+  [5378,2948,4030,7829,3137,3659,4788]
+];
+const flat=heatData.flat(),minV=Math.min(...flat),maxV=Math.max(...flat);
+function getColor(val){
+  const t=(val-minV)/(maxV-minV);
+  const r=Math.round(235-t*(235-27));
+  const g=Math.round(244-t*(244-79));
+  const b=Math.round(252-t*(252-138));
+  return{bg:`rgb(${r},${g},${b})`,text:t>0.5?'#fff':'#333'};
+}
+const tbl=document.getElementById('hm');
+let hdr='<tr><th class="rl">Hour \\ Day</th>';
+dayShort.forEach(d=>hdr+=`<th>${d}</th>`);
+tbl.innerHTML=hdr+'</tr>';
+heatData.forEach((row,hi)=>{
+  let tr=`<tr><th class="rl">${hourLabels[hi]}</th>`;
+  row.forEach(val=>{
+    const{bg,text}=getColor(val);
+    tr+=`<td style="background:${bg};color:${text}">$${(val/1000).toFixed(1)}K</td>`;
+  });
+  tbl.innerHTML+=tr+'</tr>';
+});
+</script>
+</body>
+</html>

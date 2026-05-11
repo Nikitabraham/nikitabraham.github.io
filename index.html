@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikita — Data Analyst Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f0f0e;
+  --paper: #f7f5f0;
+  --accent: #1B4F8A;
+  --accent2: #D85A30;
+  --muted: #7a7870;
+  --border: #e0ddd6;
+  --card: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 23px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 4rem;
+  background: rgba(247,245,240,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem; color: var(--accent); letter-spacing: .01em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  text-decoration: none; letter-spacing: .04em; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 80% 40%, rgba(27,79,138,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(216,90,48,0.05) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(27,79,138,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27,79,138,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
+.hero-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 1.5rem;
+  padding: 4px 14px; border: 1px solid rgba(216,90,48,0.3); border-radius: 20px;
+  animation: fadeUp .6s ease both;
+}
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.08; letter-spacing: -.02em; color: var(--ink);
+  animation: fadeUp .7s .1s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  margin-top: 1.5rem; font-size: 1.1rem; color: var(--muted); font-weight: 300;
+  max-width: 540px; line-height: 1.7;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-actions {
+  display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+  animation: fadeUp .7s .3s ease both;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: .75rem 1.75rem; border-radius: 6px; font-size: 14px;
+  font-weight: 500; text-decoration: none; transition: all .2s; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary { background: var(--accent); color: #fff; border: 1.5px solid var(--accent); }
+.btn-primary:hover { background: #154075; border-color: #154075; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.hero-meta {
+  margin-top: 4rem; display: flex; gap: 3rem;
+  animation: fadeUp .7s .4s ease both;
+}
+.hero-stat .num {
+  font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent);
+}
+.hero-stat .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+/* SECTIONS */
+section { padding: 6rem 4rem; }
+.section-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: .75rem;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-bottom: 1rem;
+}
+.section-sub { color: var(--muted); font-size: 1rem; max-width: 540px; margin-bottom: 3rem; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--muted); margin-bottom: 1rem; }
+.about-text p strong { color: var(--ink); font-weight: 500; }
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.skill-pill {
+  display: flex; align-items: center; gap: 10px;
+  padding: .65rem 1rem; background: var(--card);
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 13px; font-weight: 400; color: var(--ink);
+  transition: border-color .2s, transform .2s;
+}
+.skill-pill:hover { border-color: var(--accent); transform: translateX(3px); }
+.skill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.skill-section-label {
+  font-size: 11px; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); margin: 1.5rem 0 .75rem;
+  grid-column: 1/-1;
+}
+
+/* PROJECT */
+.project-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  overflow: hidden; transition: box-shadow .3s, transform .3s;
+}
+.project-card:hover { box-shadow: 0 20px 60px rgba(27,79,138,0.1); transform: translateY(-4px); }
+.project-header {
+  background: linear-gradient(135deg, #0f2744 0%, #1B4F8A 60%, #2563a8 100%);
+  padding: 2.5rem 2.5rem 2rem; position: relative; overflow: hidden;
+}
+.project-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.project-header-content { position: relative; z-index: 1; }
+.project-tag {
+  display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.project-header h3 {
+  font-family: 'DM Serif Display', serif; font-size: 1.8rem;
+  color: #fff; line-height: 1.2; margin-bottom: .5rem;
+}
+.project-header p { color: rgba(255,255,255,0.65); font-size: 14px; }
+.project-stats {
+  display: flex; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.p-stat .pn { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: #fff; }
+.p-stat .pl { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .06em; }
+.project-body { padding: 2rem 2.5rem; }
+.findings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.finding {
+  background: var(--paper); border-radius: 10px; padding: 1rem;
+  border: 1px solid var(--border);
+}
+.finding .f-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; }
+.finding .f-value { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); margin-bottom: 3px; }
+.finding .f-desc { font-size: 12px; color: var(--muted); }
+.tools-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+.tool-tag {
+  font-size: 11px; font-weight: 500; padding: 3px 10px;
+  background: var(--paper); border: 1px solid var(--border);
+  border-radius: 20px; color: var(--muted);
+}
+.project-actions { display: flex; gap: .75rem; margin-top: 1.25rem; }
+
+/* JOURNEY */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+.timeline-item::before {
+  content: ''; position: absolute; left: -2rem; top: 8px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--accent);
+}
+.timeline-item.active::before { background: var(--accent); }
+.t-date { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+.t-title { font-weight: 500; font-size: 1rem; margin-bottom: 4px; }
+.t-sub { font-size: 13px; color: var(--muted); }
+
+/* GOAL */
+.goal-card {
+  background: linear-gradient(135deg, #0f2744, #1B4F8A);
+  border-radius: 16px; padding: 3rem; position: relative; overflow: hidden;
+}
+.goal-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.goal-card-content { position: relative; z-index: 1; }
+.goal-card .section-tag { color: rgba(255,255,255,0.5); }
+.goal-card .section-title { color: #fff; margin-bottom: 1rem; }
+.goal-card p { color: rgba(255,255,255,0.7); max-width: 600px; margin-bottom: 2rem; }
+.goal-pills { display: flex; gap: .75rem; flex-wrap: wrap; }
+.goal-pill {
+  padding: .5rem 1.25rem; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 400;
+}
+
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.contact-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 1rem 1.25rem; background: var(--card);
+  border: 1px solid var(--border); border-radius: 10px;
+  text-decoration: none; color: var(--ink); font-size: 14px;
+  margin-bottom: .75rem; transition: all .2s;
+}
+.contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+.contact-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+
+/* FOOTER */
+footer {
+  text-align: center; padding: 2rem 4rem;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero h1 { font-size: 2.8rem; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .findings-grid { grid-template-columns: 1fr 1fr; }
+  .hero-meta { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Nikita</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#goal">Goal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Data Analyst Portfolio &nbsp;·&nbsp; Vancouver, BC</span>
+    <h1>Turning data<br>into <em>decisions</em></h1>
+    <p class="hero-sub">Electronics retail professional pivoting into data analytics — combining 5+ years of sales floor experience with AI-powered analysis tools to surface insights that actually move the business.</p>
+    <div class="hero-actions">
+      <a href="#project" class="btn btn-primary">View my project</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <div class="num">1,000</div>
+        <div class="label">Transactions analysed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">6</div>
+        <div class="label">Charts & insights</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">10</div>
+        <div class="label">Product categories</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-tag">About me</div>
+    <h2 class="section-title">Sales advisor.<br>Data analyst in progress.</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm <strong>Nikita</strong>, a full-time electronics sales advisor at BestBuy in Vancouver with a background in <strong>Electronics and Communication Engineering</strong>. I know retail data from both sides — the sales floor and the spreadsheet.</p>
+      <p>I'm currently transitioning into data analytics, combining formal technical training with AI-augmented analysis tools. My retail domain knowledge gives me something most analysts don't have: I already know what "normal" looks like in a consumer electronics environment.</p>
+      <p>My approach is practical and business-focused. I use tools like <strong>Claude AI, Power BI, and Excel</strong> to move from raw data to clear recommendations — and I'm learning SQL and Python alongside it.</p>
+    </div>
+    <div>
+      <div class="skills-grid">
+        <div class="skill-section-label">Analysis & Tools</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#1B4F8A"></span>Microsoft Excel & Power BI</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#1B4F8A"></span>Claude AI / ChatGPT</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#1B4F8A"></span>Data visualisation</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#1B4F8A"></span>SQL (learning)</div>
+
+        <div class="skill-section-label">Domain Knowledge</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#D85A30"></span>Consumer electronics retail</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#D85A30"></span>Sales trend analysis</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#D85A30"></span>Customer segmentation</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#D85A30"></span>Revenue reporting</div>
+
+        <div class="skill-section-label">Soft Skills</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#7a7870"></span>Stakeholder communication</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#7a7870"></span>Data governance awareness</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#7a7870"></span>Business storytelling</div>
+        <div class="skill-pill"><span class="skill-dot" style="background:#7a7870"></span>Electronics & Communication Eng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECT -->
+<section id="project">
+  <div class="reveal">
+    <div class="section-tag">Featured project</div>
+    <h2 class="section-title">BestBuy Sales Analysis 2025</h2>
+    <p class="section-sub">A full end-to-end retail analytics project — from raw CSV to actionable business recommendations.</p>
+  </div>
+  <div class="project-card reveal">
+    <div class="project-header">
+      <div class="project-header-content">
+        <span class="project-tag">Retail Analytics &nbsp;·&nbsp; 2025</span>
+        <h3>Electronics Retail Sales Dashboard</h3>
+        <p>Analysed 1,000 transactions across 10 product categories to surface revenue drivers, seasonal trends, customer segments, and optimal staffing windows.</p>
+        <div class="project-stats">
+          <div class="p-stat"><div class="pn">$818K</div><div class="pl">Total revenue analysed</div></div>
+          <div class="p-stat"><div class="pn">$103K</div><div class="pl">Peak hour (6 PM)</div></div>
+          <div class="p-stat"><div class="pn">$22.8K</div><div class="pl">Best window (Sat 5PM)</div></div>
+          <div class="p-stat"><div class="pn">$2,385</div><div class="pl">Top avg ticket</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="findings-grid">
+        <div class="finding">
+          <div class="f-label">Top category</div>
+          <div class="f-value">Audio</div>
+          <div class="f-desc">$119,821 — leads all 10 departments</div>
+        </div>
+        <div class="finding">
+          <div class="f-label">Peak month</div>
+          <div class="f-value">May</div>
+          <div class="f-desc">$92,543 — driven by spring promos</div>
+        </div>
+        <div class="finding">
+          <div class="f-label">Best customer</div>
+          <div class="f-value">Women 55+</div>
+          <div class="f-desc">$924 avg spend per transaction</div>
+        </div>
+        <div class="finding">
+          <div class="f-label">Power window</div>
+          <div class="f-value">Sat 5 PM</div>
+          <div class="f-desc">$22,846 — #1 day + hour combo</div>
+        </div>
+        <div class="finding">
+          <div class="f-label">VIP segment</div>
+          <div class="f-value">W45–54 × Cameras</div>
+          <div class="f-desc">$28,619 from just 12 transactions</div>
+        </div>
+        <div class="finding">
+          <div class="f-label">Peak hour</div>
+          <div class="f-value">6 PM</div>
+          <div class="f-desc">$103,359 — staff up 4–8 PM window</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tool-tag">Claude AI</span>
+        <span class="tool-tag">Python (pandas)</span>
+        <span class="tool-tag">Chart.js</span>
+        <span class="tool-tag">Excel</span>
+        <span class="tool-tag">Data cleaning</span>
+        <span class="tool-tag">Customer segmentation</span>
+        <span class="tool-tag">Revenue analysis</span>
+        <span class="tool-tag">Heatmap visualisation</span>
+      </div>
+      <div class="project-actions">
+        <a href="bestbuy_2025_analysis.html" class="btn btn-primary" target="_blank">View full dashboard</a>
+        <a href="#contact" class="btn btn-outline">Discuss this project</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="reveal">
+    <div class="section-tag">My journey</div>
+    <h2 class="section-title">From the sales floor<br>to the data desk.</h2>
+    <p class="section-sub">A non-linear path — and that's the point. Retail experience makes me a better analyst.</p>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="t-date">Background</div>
+      <div class="t-title">Electronics & Communication Engineering</div>
+      <div class="t-sub">Built a strong technical foundation — circuits, signals, and systems thinking that transfers directly into data work.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date">Current role</div>
+      <div class="t-title">Sales Advisor — BestBuy, Vancouver</div>
+      <div class="t-sub">5+ years on the floor. Deep knowledge of consumer electronics retail: product cycles, seasonal demand, customer buying behaviour, and what drives revenue.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date">Upskilling</div>
+      <div class="t-title">Data Analytics courses + AI tools</div>
+      <div class="t-sub">Completed foundational data courses. Now building hands-on skills in SQL, Excel, Power BI, and AI-assisted analysis. Learning by doing — with real retail datasets.</div>
+    </div>
+    <div class="timeline-item active">
+      <div class="t-date">Now</div>
+      <div class="t-title">Portfolio building & job search</div>
+      <div class="t-sub">Building end-to-end projects that reflect real business problems. Targeting junior data analyst roles in retail, e-commerce, and consumer tech.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- GOAL -->
+<section id="goal" style="padding-top: 0">
+  <div class="goal-card reveal">
+    <div class="goal-card-content">
+      <div class="section-tag">Career goal</div>
+      <h2 class="section-title">Junior Data Analyst<br>in retail or e-commerce</h2>
+      <p>I'm looking for my first data analyst role where I can combine domain expertise in consumer electronics with growing technical skills. I bring something most candidates can't — I've lived the data I'm analysing.</p>
+      <div class="goal-pills">
+        <span class="goal-pill">Junior Data Analyst</span>
+        <span class="goal-pill">Business Analyst</span>
+        <span class="goal-pill">Reporting Analyst</span>
+        <span class="goal-pill">Retail &amp; E-commerce</span>
+        <span class="goal-pill">Vancouver, BC</span>
+        <span class="goal-pill">Open to remote</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid reveal">
+    <div>
+      <div class="section-tag">Get in touch</div>
+      <h2 class="section-title">Let's talk data.</h2>
+      <p style="color:var(--muted);margin-bottom:2rem">Open to junior analyst roles, freelance projects, and coffee chats with people working in data. Based in Vancouver — open to remote.</p>
+    </div>
+    <div>
+      <a href="www.linkedin.com/in/nikitaabraham2001" class="contact-link" target="_blank">
+        <div class="contact-icon" style="background:#E8F0FA">🔗</div>
+        <div>
+          <div style="font-weight:500">LinkedIn</div>
+          <div style="font-size:12px;color:var(--muted)">www.linkedin.com/in/nikitaabraham2001 — connect with me</div>
+        </div>
+      </a>
+      <a href="https://github.com" class="contact-link" target="_blank">
+        <div class="contact-icon" style="background:#f0f0f0">⌥</div>
+        <div>
+          <div style="font-weight:500">GitHub</div>
+          <div style="font-size:12px;color:var(--muted)">Coming soon — project files will live here</div>
+        </div>
+      </a>
+      <a href="mailto:abrah.nikita@gmail.com" class="contact-link">
+        <div class="contact-icon" style="background:#FEF0EB">✉</div>
+        <div>
+          <div style="font-weight:500">Email</div>
+          <div style="font-size:12px;color:var(--muted)">abrah.nikita@gmail.com</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Nikita &nbsp;·&nbsp; Vancouver, BC &nbsp;·&nbsp; Data Analyst Portfolio 2025</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
