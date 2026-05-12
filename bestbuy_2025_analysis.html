@@ -52,7 +52,7 @@
     <h2>Q2 — Monthly revenue trend</h2>
     <p class="sub">Seasonal peaks to flag for management</p>
     <canvas id="c2" height="90"></canvas>
-    <div class="insight"><b>Three clear peaks: May ($92,543), October ($80,770), and December ($82,741).</b> March ($50,958) and September ($50,357) are the slowest months — ideal for targeted promotions or clearance events.</div>
+    <div class="insight"><b>November is your biggest month at $141,710 — driven by Black Friday.</b> December follows at $121,760 (holiday season) and September at $93,691 (back-to-school + new product launches). January ($24,792) and February ($17,974) are your slowest months — plan clearance events and loyalty promotions during these weeks.</div>
   </div>
 
   <div class="card full">
@@ -66,14 +66,14 @@
     <h2>Q4 — Revenue by day of week</h2>
     <p class="sub">Best and worst days for sales</p>
     <canvas id="c4" height="200"></canvas>
-    <div class="insight"><b>Friday is strongest ($124,360). Sunday is weakest ($100,688).</b> Launch promotions on Friday. Run loyalty deals on Sunday to lift the slow day.</div>
+    <div class="insight"><b>Friday dominates at $211,875 — more than double any other day. Saturday follows at $177,099.</b> Tuesday is your weakest day at just $34,300. Recommendation: run your biggest promotions Friday–Saturday. Use Tuesday for staff training or back-office tasks.</div>
   </div>
 
   <div class="card">
     <h2>Best-selling hour of the day</h2>
     <p class="sub">When are customers most active in store?</p>
     <canvas id="c6" height="200"></canvas>
-    <div class="insight"><b>6 PM is your peak hour at $103,359.</b> The after-work window (5–7 PM) drives the most revenue. Staff up between 4–8 PM and run promotions through that window.</div>
+    <div class="insight"><b>4 PM is your peak hour at $122,546 — the start of the after-work rush.</b> The 4–7 PM window is your power zone, especially on Fridays and Saturdays. Staff up heavily during this window and keep promotions running through close.</div>
   </div>
 
   <div class="card full">
@@ -81,11 +81,9 @@
     <p class="sub">Darker cell = higher revenue. Spot your power windows at a glance.</p>
     <div class="heatmap-wrap"><table class="hm" id="hm"></table></div>
     <div class="legend-row">
-      <span>Low</span>
-      <div class="legend-grad"></div>
-      <span>High</span>
+      <span>Low</span><div class="legend-grad"></div><span>High</span>
     </div>
-    <div class="insight"><b>Saturday 5 PM is your #1 power window ($22,846).</b> Wednesday 4 PM ($21,498) and Friday 6 PM ($20,584) are close runners-up. <b>Recommendation:</b> Schedule your biggest in-store promotions on Saturday afternoons and Friday evenings. Avoid Sunday mornings — the quietest window of the entire week.</div>
+    <div class="insight"><b>Friday 4 PM is your #1 power window at $47,903 — by far the highest single slot of the week.</b> Friday 7 PM ($36,589) and Friday 5 PM ($28,109) are strong runners-up. Saturday 6 PM ($28,608) is your best Saturday slot. <b>Recommendation:</b> Make sure your top staff and demo stations are running every Friday from 4–8 PM and Saturday from 5–7 PM. Tuesday mornings are your deadest window — minimal floor staff needed.</div>
   </div>
 
   <div class="card full">
@@ -96,58 +94,85 @@
         <span class="badge" style="background:#dbeeff;color:#1B4F8A">Top recommendation</span>
         <div class="name">Women 45–54 × Cameras</div>
         <div class="stat">$28,619</div>
-        <div class="desc">Only 12 transactions — avg $2,385 per ticket. Your highest-value segment. Target with camera bundles, Geek Squad plans, and in-store demos.</div>
+        <div class="desc">Only 12 transactions — avg $2,385 per ticket. Your highest-value segment. Target with camera bundles, Geek Squad plans, and in-store demos on Friday afternoons.</div>
       </div>
       <div class="seg-card">
         <span class="badge" style="background:#fef3cd;color:#7D4E00">Runner up</span>
         <div class="name">Women 55+ × TVs</div>
         <div class="stat">$24,989</div>
-        <div class="desc">Just 7 transactions, avg $3,570 per ticket — the highest avg spend in the dataset. Small but extraordinarily high value.</div>
+        <div class="desc">Just 7 transactions, avg $3,570 per ticket — the highest avg spend in the entire dataset. Small but extraordinarily high value.</div>
       </div>
       <div class="seg-card">
         <span class="badge" style="background:#d4efdf;color:#1A6B3C">Volume pick</span>
         <div class="name">Men 25–34 × Appliances</div>
         <div class="stat">$19,598</div>
-        <div class="desc">23 transactions at $852 avg. Lower ticket but consistent — best for stable recurring revenue.</div>
+        <div class="desc">23 transactions at $852 avg. Lower ticket but consistent — best for stable recurring revenue especially in November and December.</div>
       </div>
     </div>
   </div>
 
 </div>
+
 <script>
 const P='#7F77DD',T='#1D9E75',A='#EF9F27',C='#D85A30',B='#378ADD',G='#888780';
 const tc='#666',gc='rgba(0,0,0,0.06)';
 const tip=v=>' $'+Math.round(v).toLocaleString();
 const kfmt=v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v);
 
-new Chart(document.getElementById('c1'),{type:'bar',data:{labels:['Audio','Tablets','Smart Home','Appliances','Cameras','TVs','Computers','Laptops','Smartphones','Gaming'],datasets:[{data:[119821,115723,113336,110247,105383,80743,53199,52168,38061,30486],backgroundColor:[P,P,P,T,T,A,A,C,C,C],borderRadius:5,borderSkipped:false}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.x)}}},scales:{x:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11}},grid:{display:false}}}}});
+// Q1 horizontal bar
+new Chart(document.getElementById('c1'),{
+  type:'bar',
+  data:{labels:['Audio','Tablets','Smart Home','Appliances','Cameras','TVs','Computers','Laptops','Smartphones','Gaming'],datasets:[{data:[119821,115723,113336,110247,105383,80743,53199,52168,38061,30486],backgroundColor:[P,P,P,T,T,A,A,C,C,C],borderRadius:5,borderSkipped:false}]},
+  options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.x)}}},scales:{x:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11}},grid:{display:false}}}}
+});
 
-new Chart(document.getElementById('c2'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{data:[57959,70055,50958,58912,92543,57741,67003,77682,50357,80770,70500,82741],borderColor:'#1B4F8A',backgroundColor:'#1B4F8A22',fill:true,tension:0.4,pointBackgroundColor:'#1B4F8A',pointRadius:5,pointHoverRadius:7}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+// Q2 monthly line
+const monthData=[24792,17974,67137,42571,74671,54368,30553,66980,93691,82960,141710,121760];
+new Chart(document.getElementById('c2'),{
+  type:'line',
+  data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],datasets:[{data:monthData,borderColor:'#1B4F8A',backgroundColor:'#1B4F8A22',fill:true,tension:0.4,pointBackgroundColor:monthData.map(v=>v===Math.max(...monthData)?T:v===Math.min(...monthData)?C:'#1B4F8A'),pointRadius:monthData.map(v=>(v===Math.max(...monthData)||v===Math.min(...monthData))?7:4),pointHoverRadius:7}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}
+});
 
-new Chart(document.getElementById('c3'),{type:'bar',data:{labels:['18–24','25–34','35–44','45–54','55+'],datasets:[{label:'Female',data:[723,843,830,900,924],backgroundColor:C,borderRadius:4},{label:'Male',data:[815,916,773,789,640],backgroundColor:B,borderRadius:4}]},options:{plugins:{legend:{display:true,labels:{color:tc,font:{size:11},boxWidth:14,padding:16}},tooltip:{callbacks:{label:c=>' $'+c.parsed.y}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:v=>'$'+v},grid:{color:gc}}}}});
+// Q3 grouped bar
+new Chart(document.getElementById('c3'),{
+  type:'bar',
+  data:{labels:['18–24','25–34','35–44','45–54','55+'],datasets:[{label:'Female',data:[723,843,830,900,924],backgroundColor:C,borderRadius:4},{label:'Male',data:[815,916,773,789,640],backgroundColor:B,borderRadius:4}]},
+  options:{plugins:{legend:{display:true,labels:{color:tc,font:{size:11},boxWidth:14,padding:16}},tooltip:{callbacks:{label:c=>' $'+c.parsed.y}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:v=>'$'+v},grid:{color:gc}}}}
+});
 
-const dayData=[119479,124434,116705,123286,124360,110215,100688];
-new Chart(document.getElementById('c4'),{type:'bar',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{data:dayData,backgroundColor:dayData.map(v=>v===Math.max(...dayData)?T:v===Math.min(...dayData)?C:G+'bb'),borderRadius:5}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+// Q4 day of week
+const dayData=[103529,34300,100711,100880,211875,177099,90773];
+new Chart(document.getElementById('c4'),{
+  type:'bar',
+  data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{data:dayData,backgroundColor:dayData.map((v,i)=>i===4?T:i===1?C:G+'bb'),borderRadius:5}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:11}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}
+});
 
-const hrData=[23047,44160,83235,73853,67694,57988,83109,86789,103359,90353,73811,31769];
-new Chart(document.getElementById('c6'),{type:'bar',data:{labels:['10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM'],datasets:[{data:hrData,backgroundColor:hrData.map(v=>v===Math.max(...hrData)?T:v===Math.min(...hrData)?C:P+'bb'),borderRadius:4}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:10}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}});
+// Hourly bar
+const hrData=[16522,45149,71624,69012,54689,63776,122546,107016,98085,102482,33422,34844];
+new Chart(document.getElementById('c6'),{
+  type:'bar',
+  data:{labels:['10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM'],datasets:[{data:hrData,backgroundColor:hrData.map(v=>v===Math.max(...hrData)?T:v===Math.min(...hrData)?C:P+'bb'),borderRadius:4}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>tip(c.parsed.y)}}},scales:{x:{ticks:{color:tc,font:{size:10}},grid:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:kfmt},grid:{color:gc}}}}
+});
 
 // Heatmap
 const dayShort=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const hourLabels=['10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM','6PM','7PM','8PM','9PM'];
 const heatData=[
-  [1047,5897,2649,5486,3316,1197,3455],
-  [7486,5233,4690,10156,6767,3787,6041],
-  [10702,14829,18081,11254,11052,11385,5932],
-  [20325,8120,4155,6953,15082,9130,10088],
-  [6209,10130,8280,10384,13905,11722,7064],
-  [8933,11478,7712,10013,3885,7488,8479],
-  [16573,5744,21498,13653,8703,3315,13623],
-  [14372,12186,9085,10797,11356,22846,6147],
-  [9965,15941,19206,9262,20584,14025,14376],
-  [10372,15364,4751,16930,15636,15851,11449],
-  [8117,16564,12568,10569,10937,5810,9246],
-  [5378,2948,4030,7829,3137,3659,4788]
+  [995,0,5224,3045,1489,4932,837],
+  [10023,1497,4116,4698,7915,8902,7998],
+  [8553,3094,7478,7805,18798,17550,8346],
+  [8257,3193,10009,10563,11873,13058,12059],
+  [3891,994,10022,9525,14192,10425,5640],
+  [7130,2841,7185,11746,16681,12574,5619],
+  [13427,4900,10904,10344,47903,27406,7662],
+  [13127,2306,9472,8776,28109,26921,18305],
+  [15862,5441,9631,10200,20768,28608,7575],
+  [8877,7147,18158,9969,36589,12999,8743],
+  [4634,1994,5223,3417,3255,9602,5297],
+  [8753,893,3289,10792,4303,4122,2692]
 ];
 const flat=heatData.flat(),minV=Math.min(...flat),maxV=Math.max(...flat);
 function getColor(val){
